@@ -24,7 +24,7 @@ st.markdown("""
         fill: #FF0000 !important;
     }
     button[kind="headerNoPadding"] svg {
-        fill: #FF0000 !important;
+        fill: #FFFFFFF !important;
     }
 
     /* Background Image: Crystal Clear */
@@ -174,3 +174,4 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified")
+
