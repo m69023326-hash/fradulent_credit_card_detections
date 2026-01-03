@@ -11,11 +11,13 @@ st.set_page_config(page_title="FraudGuard AI | Enterprise", layout="wide")
 # 2. Universal Visibility CSS (Fixed Sidebar & Button)
 st.markdown("""
     <style>
-    /* Force Sidebar to be dark/red even in Dark Mode */
-    [data-testid="stSidebar"] {
-        background-color: #FFFFFF !important;
-        color: #FFFFFF !important;
-    }
+   /* Force Sidebar Icon/Arrow to be Red */
+[data-testid="stSidebarNav"] svg, 
+[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stSidebarCollapseButton"] button {
+    fill: #FF0000 !important;   /* SVG Icons ke liye */
+    color: #FF0000 !important;  /* Arrow button ke liye */
+}
     
     /* Force Sidebar Icons and Text to be Black */
     [data-testid="stSidebarNav"] svg, [data-testid="stSidebarCollapseButton"] svg {
@@ -151,6 +153,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+
 
 
 
