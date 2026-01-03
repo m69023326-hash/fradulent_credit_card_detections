@@ -14,12 +14,12 @@ st.markdown("""
     /* Force Sidebar to be Light/Grey even in Dark Mode */
     [data-testid="stSidebar"] {
         background-color: #F8F9FA !important;
-        color: #000000 !important;
+        color: #ffff !important;
     }
     
     /* Force Sidebar Icons and Text to be Black */
     [data-testid="stSidebarNav"] svg, [data-testid="stSidebarCollapseButton"] svg {
-        fill: #000000 !important;
+        fill: #0000 !important;
     }
     [data-testid="stSidebar"] .stMarkdown p, [data-testid="stSidebar"] label {
         color: #000000 !important;
@@ -151,3 +151,4 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+
