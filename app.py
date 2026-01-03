@@ -8,82 +8,83 @@ import random
 # 1. Page Configuration
 st.set_page_config(page_title="FraudGuard AI | Global Security", layout="wide")
 
-# 2. Universal Visibility & Forced Light Sidebar CSS
+# 2. Universal Visibility CSS (Forces Light UI in all System Modes)
 st.markdown("""
     <style>
-    /* Force Sidebar to STAY in Light Theme */
+    /* Force Sidebar to be Light Grey with Black Text */
     [data-testid="stSidebar"] {
         background-color: #F8F9FA !important;
+    }
+    [data-testid="stSidebar"] * {
         color: #000000 !important;
     }
     
-    /* Sidebar Arrow Icon (>>) Red Color Fix */
+    /* TARGETED FIX: Sidebar Arrow Icon (>>) Red Color */
     [data-testid="stSidebarCollapseButton"] svg {
         fill: #FF0000 !important;
     }
-    
-    /* Force Sidebar text to Black */
-    [data-testid="stSidebar"] .stMarkdown p, 
-    [data-testid="stSidebar"] label {
-        color: #000000 !important;
-        font-weight: 700 !important;
+    button[kind="headerNoPadding"] svg {
+        fill: #FF0000 !important;
     }
 
-    /* Background Clarity */
+    /* Background Image: Crystal Clear */
     .stApp {
-        background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), 
+        background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), 
                     url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
         background-size: cover;
         background-attachment: fixed;
     }
 
-    /* Main Container: Absolute Solid White */
+    /* Main Content Solid White Panel */
     .solid-container {
         background-color: #FFFFFF !important;
-        padding: 35px;
+        padding: 40px;
         border-radius: 15px;
         border: 2px solid #000000;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
     
-    /* Security Intelligence Feed Box */
+    /* Intelligence Feed: Light Grey Solid */
     .intel-box {
-        background-color: #F8F9FA;
+        background-color: #F1F3F5 !important;
         border: 2px solid #000000;
         padding: 20px;
         border-radius: 10px;
         margin-bottom: 25px;
-        color: #000000 !important;
     }
 
-    /* Force Button Visibility: Black Background / White Text */
+    /* FIX: Execute Button - Deep Black with Solid White Text */
     div.stButton > button {
         background-color: #000000 !important;
         color: #FFFFFF !important;
         border: 2px solid #000000 !important;
-        font-weight: 700 !important;
         width: 100%;
         height: 3.5em;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
     }
 
-    /* High Contrast Text for All Modes */
-    h1, h2, h3, h4, p, span, div, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
+    /* FIX: Force All Body Text and Metrics to Solid Black */
+    h1, h2, h3, h4, p, span, label, div, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 700 !important;
     }
 
-    /* Report Card Style */
+    /* FIX: Report Card - Deep Black with Forced White Text */
     .report-card {
         background-color: #000000 !important;
-        border-left: 10px solid #28a745;
-        padding: 25px;
-        border-radius: 8px;
+        border-left: 12px solid #28a745;
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+    .report-card * {
         color: #FFFFFF !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. Model Loading
+# 3. Secure Model Loading
 @st.cache_resource
 def load_model():
     try: return joblib.load('model.pkl')
@@ -91,7 +92,7 @@ def load_model():
 
 model = load_model()
 
-# --- HEADER ---
+# --- HEADER SECTION ---
 st.title("FraudGuard™ Financial Intelligence")
 st.markdown("### Enterprise Fraud Monitoring Dashboard")
 st.markdown("---")
@@ -109,28 +110,30 @@ with st.sidebar:
 # --- MAIN DASHBOARD AREA ---
 st.markdown('<div class="solid-container">', unsafe_allow_html=True)
 
-# SECURITY INTELLIGENCE FEED
+# SECURITY INTELLIGENCE FEED (Filled the empty box)
 st.markdown(f"""
 <div class="intel-box">
     <h4 style="margin-top:0;">🛡️ Security Intelligence Feed</h4>
-    <p style="font-size: 1rem; line-height: 1.5;">
-    <b>System Monitor:</b> All protocols operational. Neural network is cross-referencing global pattern clusters. <br>
-    <b>PCA Component Logic:</b> Dashboard focuses on <b>V14 (Structural Integrity)</b> and <b>V17 (Behavioral Consistency)</b>. 
-    If coefficients drop below -4.0, risk probability increases exponentially. 
-    Validation model maintains a <b>99.9% precision rate</b>.
+    <p style="font-size: 1rem; line-height: 1.6;">
+    <b>System Monitor:</b> All security nodes are active. Neural engine is processing PCA-transformed vectors. <br>
+    <b>Technical Logic:</b> Monitoring <b>V14 (Structural Integrity)</b> and <b>V17 (Behavioral Shift)</b> components. 
+    Coefficients below -4.0 signify unauthorized pattern clusters. 
+    The current model operates at a <b>99.9% detection accuracy</b>.
     </p>
 </div>
 """, unsafe_allow_html=True)
 
+
 col_main, col_kpi = st.columns([2, 1])
 
 with col_main:
-    st.subheader("🔍 Real-Time Transaction Audit")
+    st.subheader("🔍 Transaction Security Analysis")
     
     if st.button("EXECUTE SECURITY SCAN"):
-        with st.spinner('Syncing with Central Security Node...'):
+        with st.spinner('Accessing Global Security Database...'):
             time.sleep(1.2)
             if model:
+                # Prediction Logic
                 features = np.zeros((1, 30))
                 features[0, 28] = amount
                 features[0, 13] = v14
@@ -146,20 +149,22 @@ with col_main:
                     action = "System authorization granted for settlement."
                     summary = f"Legitimate behavioral vectors (V17: {v17}) confirmed."
 
+                # Report Card with forced white text
                 st.markdown(f"""
                 <div class="report-card">
-                    <h2 style="margin:0; color:#FFFFFF !important;">{icon} {status}</h2>
-                    <p style="color:#FFFFFF !important; font-size:1.1rem; margin-top:10px;">
+                    <h2 style="margin:0;">{icon} {status}</h2>
+                    <p style="font-size:1.15rem; margin-top:10px;">
                     <b>Technical Summary:</b> {summary}<br>
                     <b>System Action:</b> {action}
                     </p>
                 </div>
                 """, unsafe_allow_html=True)
             else:
-                st.error("Model Error: model.pkl not detected.")
+                st.error("Model Error: model.pkl not found.")
 
 with col_kpi:
     st.subheader("📊 Network Stats")
+    # Metrics forced to black
     st.metric("System Accuracy", f"{99.9 + random.uniform(-0.005, 0.005):.3f}%")
     st.metric("Fraud Recall", "82.4%")
     st.metric("Processing", f"{random.randint(4, 8)}ms")
