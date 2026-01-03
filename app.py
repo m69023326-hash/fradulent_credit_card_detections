@@ -13,8 +13,8 @@ st.markdown("""
     <style>
     /* Force Sidebar to be Light/Grey even in Dark Mode */
     [data-testid="stSidebar"] {
-        background-color: #FFFF !important;
-        color: #ffff !important;
+        background-color: #FFFFFF !important;
+        color: #FFFFFF !important;
     }
     
     /* Force Sidebar Icons and Text to be Black */
@@ -151,5 +151,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+
 
 
