@@ -8,24 +8,22 @@ import random
 # 1. Page Configuration
 st.set_page_config(page_title="FraudGuard AI | Enterprise", layout="wide")
 
-# 2. Universal Visibility CSS (Forces Light Mode UI even in Dark Mode)
+# 2. Universal Visibility CSS (Fixed Sidebar & Button)
 st.markdown("""
     <style>
-    /* Force Sidebar to be Light/Grey like Light Mode */
+    /* Force Sidebar to be Light/Grey even in Dark Mode */
     [data-testid="stSidebar"] {
         background-color: #F8F9FA !important;
         color: #000000 !important;
     }
     
-    /* Force Sidebar Icon/Arrow to be Visible */
+    /* Force Sidebar Icons and Text to be Black */
     [data-testid="stSidebarNav"] svg, [data-testid="stSidebarCollapseButton"] svg {
         fill: #000000 !important;
     }
-
-    /* Force Sidebar Labels and Icons to Black */
     [data-testid="stSidebar"] .stMarkdown p, [data-testid="stSidebar"] label {
         color: #000000 !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
     }
 
     /* Background Image: Crystal Clear */
@@ -53,10 +51,9 @@ st.markdown("""
         width: 100%;
         font-weight: 700 !important;
         height: 3.5em !important;
-        display: block !important;
     }
 
-    /* Force All Main Text to Black */
+    /* Force Main Text to Black */
     h1, h2, h3, h4, p, span, div, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 700 !important;
@@ -65,7 +62,7 @@ st.markdown("""
     /* Report Card: Solid Black with White Text */
     .report-card {
         background-color: #000000 !important;
-        border-left: 10px solid #28a745;
+        border-left: 12px solid #28a745;
         padding: 30px;
         border-radius: 10px;
         color: #FFFFFF !important;
@@ -106,15 +103,11 @@ col_main, col_kpi = st.columns([2, 1])
 
 with col_main:
     st.subheader("🔍 Transaction Security Analysis")
-    
-    # Technical Visual Context
     st.write("""
     **V14 & V17 Contextual Framework:** Our system utilizes PCA-transformed vectors to analyze transaction integrity. 
-    - **V14** monitors for structural anomalies (e.g., duplicated metadata). 
-    - **V17** tracks behavioral spending deviations in real-time.
+    - **V14 (Structural):** Detects data anomalies like duplicated metadata. 
+    - **V17 (Behavioral):** Tracks real-time spending deviations.
     """)
-
-    [Image of a machine learning model evaluation report showing classification accuracy, precision, and recall metrics]
 
     if st.button("EXECUTE SECURITY SCAN"):
         with st.spinner('Accessing Global Security Database...'):
@@ -149,7 +142,6 @@ with col_main:
 
 with col_kpi:
     st.subheader("📊 Network Stats")
-    # All metrics forced to Black through CSS
     st.metric("System Accuracy", f"{99.9 + random.uniform(-0.005, 0.005):.3f}%")
     st.metric("Fraud Recall", "82.4%")
     st.metric("Processing Time", f"{random.randint(4, 8)}ms")
