@@ -6,52 +6,55 @@ import time
 import random
 
 # 1. Page Configuration
-st.set_page_config(page_title="FraudGuard AI | Enterprise", layout="wide")
+st.set_page_config(page_title="FraudGuard AI | Global Security", layout="wide")
 
-# 2. Optimized CSS for Maximum Readability
+# 2. High-Contrast Solid UI CSS
 st.markdown("""
     <style>
-    /* Background with heavy overlay for text clarity */
+    /* Background image with a very dark solid overlay */
     .stApp {
-        background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
-                    url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
+        background-color: #0E1117;
+        background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
+                          url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
         background-size: cover;
-        background-attachment: fixed;
     }
 
-    /* Clean white text for headings */
-    h1, h2, h3, h4 {
-        color: #FFFFFF !important;
-        font-family: 'Segoe UI', sans-serif;
-    }
-
-    /* Professional Glass Panel */
-    .glass-panel {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 30px;
-        border-radius: 15px;
-        color: #E0E0E0;
-    }
-
-    /* High-contrast report box */
-    .report-card {
-        background: rgba(255, 255, 255, 0.1);
-        border-left: 5px solid #00D4FF;
-        padding: 20px;
-        border-radius: 8px;
+    /* Solid Main Container (No Transparency) */
+    .solid-panel {
+        background-color: #161B22; /* Solid Dark Grey */
+        padding: 35px;
+        border-radius: 10px;
+        border: 2px solid #30363D;
         color: #FFFFFF;
-        margin-top: 15px;
+        margin-bottom: 25px;
     }
 
-    /* Sidebar text color */
+    /* High Visibility Report Box */
+    .report-card {
+        background-color: #0D1117; /* Solid Black */
+        border-left: 6px solid #58A6FF;
+        padding: 25px;
+        border-radius: 5px;
+        color: #C9D1D9;
+        margin-top: 20px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    /* Headings */
+    h1, h2, h3 {
+        color: #58A6FF !important;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    /* Sidebar text fix */
     .css-1d391kg {
-        color: white;
+        background-color: #0D1117 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. Secure Model Loading
+# 3. Model Loading
 @st.cache_resource
 def load_model():
     try: return joblib.load('model.pkl')
@@ -61,64 +64,60 @@ model = load_model()
 
 # --- HEADER SECTION ---
 st.title("FraudGuard™ Financial Intelligence")
-st.write("AI-Driven Risk Management & Anomaly Detection System")
+st.markdown("### **Enterprise Risk Analysis Dashboard**")
 st.markdown("---")
 
-# --- SIDEBAR ---
+# --- SIDEBAR INPUTS ---
 with st.sidebar:
-    st.header("Transaction Inputs")
-    st.write("Adjust parameters to scan for risks.")
-    amount = st.number_input("Transaction Value ($)", min_value=0.0, value=100.0)
-    v14 = st.slider("V14 (Structural Risk)", -20.0, 10.0, 0.0)
-    v17 = st.slider("V17 (Behavioral Risk)", -20.0, 10.0, 0.0)
+    st.header("🔍 Input Parameters")
+    st.write("Modify the data vector below:")
+    amount = st.number_input("Transaction Value (USD)", min_value=0.0, value=250.0)
+    v14 = st.slider("Coefficient V14 (Structural)", -20.0, 10.0, 0.0)
+    v17 = st.slider("Coefficient V17 (Behavioral)", -20.0, 10.0, 0.0)
     st.markdown("---")
-    st.caption("Standard Security Compliance: ISO 27001")
+    st.caption("Compliance: PCI-DSS & ISO 27001")
 
-# --- MAIN CONTENT ---
-st.markdown('<div class="glass-panel">', unsafe_allow_html=True)
+# --- MAIN DASHBOARD (SOLID PANEL) ---
+st.markdown('<div class="solid-panel">', unsafe_allow_html=True)
 
-col1, col2 = st.columns([2, 1])
+col_main, col_metrics = st.columns([2, 1])
 
-with col1:
-    st.header("🔍 Security Analysis")
+with col_main:
+    st.subheader("Automated Fraud Audit")
     
-    # Technical Context
-    st.markdown("""
-    **V14 (Structural Component):** High negative values often indicate fraudulent patterns like identity theft.  
-    **V17 (Behavioral Component):** Monitors deviation from normal spending habits.
+    # Technical Guidance Paragraph
+    st.write("""
+    **V14 & V17 Contextual Analysis:** These are Principal Component Analysis (PCA) vectors. 
+    **V14** detects structural anomalies in the transaction metadata, while **V17** identifies 
+    deviations in established user spending behavior. Values moving significantly 
+    into the negative spectrum indicate a heightened risk of fraudulent activity.
     """)
 
     if st.button("EXECUTE SECURITY SCAN"):
-        with st.spinner('Analyzing...'):
-            time.sleep(1.2)
+        with st.spinner('Accessing Neural Engine...'):
+            time.sleep(1.5)
+            
             if model:
-                # Prediction
-                features = np.zeros((1, 30))
-                features[0, 28] = amount
-                features[0, 13] = v14
-                features[0, 16] = v17
-                prediction = model.predict(features)
+                # Prepare Data
+                input_data = np.zeros((1, 30))
+                input_data[0, 28] = amount
+                input_data[0, 13] = v14
+                input_data[0, 16] = v17
+                prediction = model.predict(input_data)
                 
-                # Dynamic Report Generation
+                # Report Logic
                 if prediction[0] == 1:
-                    st.error("🚨 CRITICAL: FRAUDULENT PATTERN DETECTED")
-                    report = f"**Status:** High Risk.  \n**Analysis:** V14 ({v14}) indicates structural anomaly. Recommended Action: Block Transaction."
+                    st.error("🚨 **RISK ALERT: UNAUTHORIZED PATTERN**")
+                    status = "HIGH RISK"
+                    summary = f"The transaction at ${amount} displays a structural signature consistent with fraud (V14: {v14})."
+                    action = "Immediate account lock and manual review recommended."
                 else:
-                    st.success("✅ SUCCESS: TRANSACTION SECURE")
-                    report = f"**Status:** Verified.  \n**Analysis:** Behavioral components (V17: {v17}) are within safety limits. Action: Authorization Granted."
-                
-                st.markdown(f'<div class="report-card">{report}</div>', unsafe_allow_html=True)
-            else:
-                st.error("Model Error: model.pkl not found.")
+                    st.success("✅ **STATUS: TRANSACTION SECURE**")
+                    status = "LEGITIMATE"
+                    summary = f"Transaction behavior is within normal standard deviations (V17: {v17})."
+                    action = "Automated authorization granted for settlement."
 
-with col2:
-    st.header("Live Metrics")
-    st.metric("Model Accuracy", f"{99.9 + random.uniform(-0.01, 0.01):.3f}%")
-    st.metric("Fraud Recall", "82.4%")
-    st.metric("Risk Level", "High" if v14 < -5 else "Low")
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer
-st.markdown("---")
-st.caption("© 2026 FraudGuard Global | Secure Data Processing Unit")
+                # --- THE AUDIT REPORT BOX ---
+                st.markdown(f"""
+                <div class="report-card">
+                <b>Audit Status:</b> {status
