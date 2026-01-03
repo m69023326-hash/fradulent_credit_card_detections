@@ -13,7 +13,7 @@ st.markdown("""
     <style>
     /* Background Image with High Clarity */
     .stApp {
-        background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), 
+        background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
                     url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
         background-size: cover;
         background-attachment: fixed;
@@ -124,3 +124,4 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+
