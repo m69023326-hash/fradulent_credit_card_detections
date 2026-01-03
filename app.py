@@ -8,20 +8,29 @@ import random
 # 1. Page Configuration
 st.set_page_config(page_title="FraudGuard AI | Global Security", layout="wide")
 
-# 2. Universal Visibility & Custom Red Icon CSS
+# 2. Universal Visibility & Forced Light Sidebar CSS
 st.markdown("""
     <style>
-    /* Sidebar Toggle Icon (>>) Red Color Fix */
+    /* Force Sidebar to STAY in Light Theme regardless of system settings */
+    [data-testid="stSidebar"] {
+        background-color: #F8F9FA !important;
+        color: #000000 !important;
+    }
+    
+    /* TARGETED FIX: Sidebar Arrow Icon (>>) Red Color */
     [data-testid="stSidebarCollapseButton"] svg {
         fill: #FF0000 !important;
-        width: 28px !important;
-        height: 28px !important;
     }
-    button[kind="headerNoPadding"] svg {
-        fill: #FF0000 !important;
+    
+    /* Force Sidebar labels and text to Black for readability */
+    [data-testid="stSidebar"] .stMarkdown p, 
+    [data-testid="stSidebar"] label, 
+    [data-testid="stSidebar"] h2 {
+        color: #000000 !important;
+        font-weight: 700 !important;
     }
 
-    /* Background Clarity with Low Overlay */
+    /* Background Clarity */
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), 
                     url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
@@ -29,7 +38,7 @@ st.markdown("""
         background-attachment: fixed;
     }
 
-    /* Main Container: Absolute Solid White */
+    /* Main Content Container */
     .solid-container {
         background-color: #FFFFFF !important;
         padding: 35px;
@@ -48,7 +57,7 @@ st.markdown("""
         color: #000000 !important;
     }
 
-    /* Force Button Visibility: Black with White Text */
+    /* Force Button Visibility: Black Background / White Text */
     div.stButton > button {
         background-color: #000000 !important;
         color: #FFFFFF !important;
@@ -58,13 +67,13 @@ st.markdown("""
         height: 3.5em;
     }
 
-    /* High Contrast Text for All Modes */
-    h1, h2, h3, h4, p, span, label, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
+    /* High Contrast Text for Main Body */
+    h1, h2, h3, h4, p, span, div, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 700 !important;
     }
 
-    /* Report Card: Solid Black for Maximum Contrast */
+    /* Report Card Style */
     .report-card {
         background-color: #000000 !important;
         border-left: 10px solid #28a745;
@@ -78,7 +87,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# 3. Secure Model Loading
+# 3. Model Loading
 @st.cache_resource
 def load_model():
     try: return joblib.load('model.pkl')
@@ -94,7 +103,7 @@ st.markdown("---")
 # --- SIDEBAR (CONTROL PANEL) ---
 with st.sidebar:
     st.header("⚙️ Control Panel")
-    st.write("Real-time transaction vector adjustments.")
+    st.write("Real-time transaction adjustments.")
     amount = st.number_input("Transaction Value (USD)", min_value=0.0, value=250.0)
     v14 = st.slider("Coefficient V14 (Structural)", -20.0, 10.0, 0.0)
     v17 = st.slider("Coefficient V17 (Behavioral)", -20.0, 10.0, 0.0)
@@ -109,60 +118,4 @@ st.markdown(f"""
 <div class="intel-box">
     <h4 style="margin-top:0;">🛡️ Security Intelligence Feed</h4>
     <p style="font-size: 1rem; line-height: 1.5;">
-    <b>System Monitor:</b> All protocols operational. The neural network is cross-referencing global pattern clusters. <br>
-    <b>PCA Component Logic:</b> Dashboard focuses on <b>V14 (Structural Integrity)</b> and <b>V17 (Behavioral Consistency)</b>. 
-    If coefficients drop below -4.0, risk probability increases exponentially. 
-    Validation model maintains a <b>99.9% precision rate</b>.
-    </p>
-</div>
-""", unsafe_allow_html=True)
-
-col_main, col_kpi = st.columns([2, 1])
-
-with col_main:
-    st.subheader("🔍 Real-Time Transaction Audit")
-    
-    if st.button("EXECUTE SECURITY SCAN"):
-        with st.spinner('Syncing with Central Security Node...'):
-            time.sleep(1.2)
-            if model:
-                # Prepare Input
-                features = np.zeros((1, 30))
-                features[0, 28] = amount
-                features[0, 13] = v14
-                features[0, 16] = v17
-                prediction = model.predict(features)
-                
-                if prediction[0] == 1:
-                    status, icon = "HIGH RISK IDENTIFIED", "🚨"
-                    action = "Immediate fund quarantine required."
-                    summary = f"Critical structural mismatch detected (V14: {v14})."
-                else:
-                    status, icon = "TRANSACTION AUTHORIZED", "✅"
-                    action = "System authorization granted for settlement."
-                    summary = f"Legitimate behavioral vectors (V17: {v17}) confirmed."
-
-                st.markdown(f"""
-                <div class="report-card">
-                    <h2 style="margin:0;">{icon} {status}</h2>
-                    <p style="font-size:1.1rem; margin-top:10px;">
-                    <b>Technical Summary:</b> {summary}<br>
-                    <b>System Action:</b> {action}
-                    </p>
-                </div>
-                """, unsafe_allow_html=True)
-            else:
-                st.error("Model Error: model.pkl not detected.")
-
-with col_kpi:
-    st.subheader("📊 Network Stats")
-    # All metrics forced to Black/High Contrast
-    st.metric("System Accuracy", f"{99.9 + random.uniform(-0.005, 0.005):.3f}%")
-    st.metric("Fraud Recall", "82.4%")
-    st.metric("Processing", f"{random.randint(4, 8)}ms")
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Footer
-st.markdown("---")
-st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified")
+    <b>System Monitor:</b> All protocols operational. The neural network is cross-referencing global pattern clusters
