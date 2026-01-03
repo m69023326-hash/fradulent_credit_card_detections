@@ -11,7 +11,7 @@ st.set_page_config(page_title="FraudGuard AI | Enterprise", layout="wide")
 # 2. Universal Visibility CSS (Fixed Sidebar & Button)
 st.markdown("""
     <style>
-    /* Force Sidebar to be Light/Grey even in Dark Mode */
+    /* Force Sidebar to be dark/red even in Dark Mode */
     [data-testid="stSidebar"] {
         background-color: #FFFFFF !important;
         color: #FFFFFF !important;
@@ -151,6 +151,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+
 
 
 
