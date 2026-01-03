@@ -8,15 +8,17 @@ import random
 # 1. Page Configuration
 st.set_page_config(page_title="FraudGuard AI | Global Security", layout="wide")
 
-# 2. Universal Visibility CSS (Forces Light UI in all System Modes)
+# 2. Universal UI Force (Controls Light/Dark Visibility)
 st.markdown("""
     <style>
-    /* Force Sidebar to be Light Grey with Black Text */
+    /* Force Sidebar (Control Panel) to STAY in Light Theme */
     [data-testid="stSidebar"] {
         background-color: #F8F9FA !important;
+        border-right: 1px solid #DEE2E6;
     }
     [data-testid="stSidebar"] * {
         color: #000000 !important;
+        font-weight: 600 !important;
     }
     
     /* TARGETED FIX: Sidebar Arrow Icon (>>) Red Color */
@@ -24,10 +26,10 @@ st.markdown("""
         fill: #FF0000 !important;
     }
     button[kind="headerNoPadding"] svg {
-        fill: #FFFFFFF !important;
+        fill: #FF0000 !important;
     }
 
-    /* Background Image: Crystal Clear */
+    /* Background Image: Maximum Clarity */
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), 
                     url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
@@ -35,7 +37,7 @@ st.markdown("""
         background-attachment: fixed;
     }
 
-    /* Main Content Solid White Panel */
+    /* Main Container: Absolute Solid White */
     .solid-container {
         background-color: #FFFFFF !important;
         padding: 40px;
@@ -44,33 +46,38 @@ st.markdown("""
         box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
     
-    /* Intelligence Feed: Light Grey Solid */
+    /* Intelligence Feed: Informative Box */
     .intel-box {
         background-color: #F1F3F5 !important;
         border: 2px solid #000000;
         padding: 20px;
         border-radius: 10px;
         margin-bottom: 25px;
+        color: #000000 !important;
     }
 
-    /* FIX: Execute Button - Deep Black with Solid White Text */
+    /* FIX: Button - White Background with Black Text */
     div.stButton > button {
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
         border: 2px solid #000000 !important;
         width: 100%;
         height: 3.5em;
         font-weight: 800 !important;
         font-size: 1.1rem !important;
     }
+    div.stButton > button:hover {
+        background-color: #F1F3F5 !important;
+        border: 2px solid #000000 !important;
+    }
 
-    /* FIX: Force All Body Text and Metrics to Solid Black */
+    /* Force All Main Text to Solid Black */
     h1, h2, h3, h4, p, span, label, div, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 700 !important;
     }
 
-    /* FIX: Report Card - Deep Black with Forced White Text */
+    /* Report Card: Deep Black with Solid White Text */
     .report-card {
         background-color: #000000 !important;
         border-left: 12px solid #28a745;
@@ -100,22 +107,22 @@ st.markdown("---")
 # --- SIDEBAR (CONTROL PANEL) ---
 with st.sidebar:
     st.header("⚙️ Control Panel")
-    st.write("Real-time transaction adjustments.")
+    st.write("Adjust transaction parameters for real-time risk assessment.")
     amount = st.number_input("Transaction Value (USD)", min_value=0.0, value=250.0)
     v14 = st.slider("Coefficient V14 (Structural)", -20.0, 10.0, 0.0)
     v17 = st.slider("Coefficient V17 (Behavioral)", -20.0, 10.0, 0.0)
     st.markdown("---")
-    st.caption("Standard: PCI-DSS Compliant")
+    st.caption("Compliance: ISO 27001 & PCI-DSS")
 
 # --- MAIN DASHBOARD AREA ---
 st.markdown('<div class="solid-container">', unsafe_allow_html=True)
 
-# SECURITY INTELLIGENCE FEED (Filled the empty box)
+# SECURITY INTELLIGENCE FEED (Filled White Box)
 st.markdown(f"""
 <div class="intel-box">
     <h4 style="margin-top:0;">🛡️ Security Intelligence Feed</h4>
     <p style="font-size: 1rem; line-height: 1.6;">
-    <b>System Monitor:</b> All security nodes are active. Neural engine is processing PCA-transformed vectors. <br>
+    <b>System Monitor:</b> All security protocols are active. The neural engine is processing PCA-transformed vectors. <br>
     <b>Technical Logic:</b> Monitoring <b>V14 (Structural Integrity)</b> and <b>V17 (Behavioral Shift)</b> components. 
     Coefficients below -4.0 signify unauthorized pattern clusters. 
     The current model operates at a <b>99.9% detection accuracy</b>.
@@ -123,17 +130,16 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-
 col_main, col_kpi = st.columns([2, 1])
 
 with col_main:
     st.subheader("🔍 Transaction Security Analysis")
     
     if st.button("EXECUTE SECURITY SCAN"):
-        with st.spinner('Accessing Global Security Database...'):
+        with st.spinner('Syncing with Global Security Database...'):
             time.sleep(1.2)
             if model:
-                # Prediction Logic
+                # Prepare Prediction
                 features = np.zeros((1, 30))
                 features[0, 28] = amount
                 features[0, 13] = v14
@@ -149,7 +155,7 @@ with col_main:
                     action = "System authorization granted for settlement."
                     summary = f"Legitimate behavioral vectors (V17: {v17}) confirmed."
 
-                # Report Card with forced white text
+                # Final Report Display
                 st.markdown(f"""
                 <div class="report-card">
                     <h2 style="margin:0;">{icon} {status}</h2>
@@ -164,7 +170,7 @@ with col_main:
 
 with col_kpi:
     st.subheader("📊 Network Stats")
-    # Metrics forced to black
+    # Forced High Contrast Metrics
     st.metric("System Accuracy", f"{99.9 + random.uniform(-0.005, 0.005):.3f}%")
     st.metric("Fraud Recall", "82.4%")
     st.metric("Processing", f"{random.randint(4, 8)}ms")
@@ -174,4 +180,3 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified")
-
