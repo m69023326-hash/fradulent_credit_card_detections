@@ -13,7 +13,7 @@ st.markdown("""
     <style>
     /* Force Sidebar to be Light/Grey even in Dark Mode */
     [data-testid="stSidebar"] {
-        background-color: #F8F9FA !important;
+        background-color: #FFFF !important;
         color: #ffff !important;
     }
     
@@ -45,8 +45,8 @@ st.markdown("""
 
     /* Force Button Visibility: Black Background with White Text */
     div.stButton > button {
-        background-color: #000000 !important;
-        color: #FFFFFF !important;
+        background-color: #FFFFFF !important;
+        color: #000000 !important;
         border: 2px solid #000000 !important;
         width: 100%;
         font-weight: 700 !important;
@@ -151,4 +151,5 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+
 
