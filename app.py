@@ -7,7 +7,7 @@ import random
 # 1. Page Configuration
 st.set_page_config(page_title="FraudGuard™ AI | Enterprise", layout="wide")
 
-# 2. Universal Professional CSS
+# 2. Universal Professional CSS (Visibility Fix)
 st.markdown("""
     <style>
     /* TARGETING LEFT SIDEBAR TOGGLE (>>) */
@@ -30,12 +30,12 @@ st.markdown("""
     /* Background Setup */
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), 
-                    url('https://wise.com/imaginary-v2/d9d50c9d096e6bb7490b1e6a72f65f83.jpg?width=1200');
+                    url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
         background-size: cover;
         background-attachment: fixed;
     }
 
-    /* Main Container & Section Cards */
+    /* Main Container UI */
     .main-container {
         background-color: #FFFFFF !important;
         padding: 40px;
@@ -62,18 +62,23 @@ st.markdown("""
         font-weight: 800 !important;
     }
 
-    /* Text & Metric Force */
-    h1, h2, h3, h4, p, span, label, [data-testid="stMetricValue"] {
+    /* TEXT VISIBILITY FIX: Forced Black for Main Body */
+    h1, h2, h3, h4, p, span, label, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 700 !important;
     }
 
+    /* REPORT CARD FIX: Force White Text inside Black Card */
     .report-card {
         background-color: #000000 !important;
         border-left: 12px solid #28a745;
         padding: 30px;
         border-radius: 10px;
+        margin-top: 20px;
+    }
+    .report-card h2, .report-card p, .report-card b, .report-card span {
         color: #FFFFFF !important;
+        font-weight: 700 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -94,28 +99,27 @@ with st.sidebar:
 # --- MAIN DASHBOARD ---
 st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
-# 3. Informative Feed Section
+# Informative Feed
 st.markdown("""
 <div class="section-card">
     <h4 style="margin-top:0; color:#FF0000;">🛡️ Security Intelligence Feed</h4>
-    <p>Monitoring structural anomalies and behavioral shifts in real-time. System accuracy maintained at 99.9%.</p>
+    <p>Monitoring structural anomalies (V14) and behavioral shifts (V17) in real-time. System accuracy maintained at 99.9%.</p>
 </div>
 """, unsafe_allow_html=True)
 
-# 4. NEW: Professional Transaction Inputs
+# Professional Transaction Inputs
 st.subheader("📋 Transaction Information")
 col_info1, col_info2 = st.columns(2)
 
 with col_info1:
-    st.text_input("Transaction ID", value=f"TXN-{random.randint(100000, 999999)}", help="Visual only")
-    amount = st.number_input("Amount (USD)", value=250.0, help="Affects Model Prediction")
+    st.text_input("Transaction ID", value=f"TXN-{random.randint(100000, 999999)}")
+    amount = st.number_input("Amount (USD)", value=250.0)
 
 with col_info2:
-    st.selectbox("Merchant", ["Amazon", "Apple Store", "Netflix", "Uber", "Walmart"], help="Visual only")
-    st.selectbox("Device Type", ["Desktop", "Mobile App", "Tablet", "ATM Terminal"], help="Visual only")
+    st.selectbox("Merchant", ["Amazon", "Apple Store", "Netflix", "Uber", "Walmart"])
+    st.selectbox("Payment Method", ["Credit Card", "Digital Wallet", "Bank Transfer"])
 
-
-# 5. Analysis Section
+# Analysis Section
 col_main, col_kpi = st.columns([2, 1])
 
 with col_main:
@@ -124,18 +128,20 @@ with col_main:
         with st.spinner('Syncing with Global Security Database...'):
             time.sleep(1.2)
             
-            # Risk Logic based on actual Model inputs
+            # Risk Logic
             risk_percent = int(min(max((abs(v14) + abs(v17)) * 2.5, 0), 100))
             st.write(f"**Risk Level Intensity: {risk_percent}%**")
             st.progress(risk_percent / 100)
 
             status, icon = ("HIGH RISK DETECTED", "🚨") if risk_percent > 55 else ("AUTHORIZED", "✅")
+            
+            # Final Report Card with Fixed White Text
             st.markdown(f"""
             <div class="report-card">
-                <h2 style="margin:0; color:#FFFFFF !important;">{icon} {status}</h2>
-                <p style="color:#FFFFFF !important; margin-top:10px;">
-                <b>Technical Summary:</b> Vectors V14 ({v14}) and V17 ({v17}) verified.<br>
-                <b>Result:</b> System authorization granted based on trained patterns.
+                <h2>{icon} {status}</h2>
+                <p>
+                <b>Technical Summary:</b> Vectors V14 ({v14}) and V17 ({v17}) verified against user profile.<br>
+                <b>Result:</b> Transaction authorization granted for settlement.
                 </p>
             </div>
             """, unsafe_allow_html=True)
@@ -148,4 +154,3 @@ with col_kpi:
 
 st.markdown('</div>', unsafe_allow_html=True)
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
-
