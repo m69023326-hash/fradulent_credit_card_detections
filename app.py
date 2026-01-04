@@ -28,7 +28,7 @@ st.markdown("""
     /* Background Image: Maximum Clarity */
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), 
-                    url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
+                    url('https://images.unsplash.com/photo-1610501693690-64414e727fe3?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         background-size: cover;
         background-attachment: fixed;
     }
@@ -145,3 +145,4 @@ with col_kpi:
 
 st.markdown('</div>', unsafe_allow_html=True)
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+
