@@ -30,7 +30,7 @@ st.markdown("""
     /* 3. Background Image Setup */
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), 
-                    url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
+                    url('https://wise.com/imaginary-v2/d9d50c9d096e6bb7490b1e6a72f65f83.jpg?width=1200');
         background-size: cover;
         background-attachment: fixed;
     }
@@ -156,5 +156,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified Developed By Mubasher & Fellows.")
+
 
 
