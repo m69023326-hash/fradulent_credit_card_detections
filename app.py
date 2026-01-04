@@ -159,5 +159,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer
 st.markdown("---")
-st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified" Developed by Mubasher Arshad & Fellows.")
+st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified Developed by Mubasher Arshad & Fellows.")
+
 
