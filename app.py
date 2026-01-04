@@ -46,7 +46,7 @@ st.markdown("""
     
     .intel-box {
         background-color: #F8F9FAF !important;
-        border: 2px solid #000000;
+        border: 2px solid #F8F9FAF;
         padding: 25px;
         border-radius: 12px;
         margin-bottom: 25px;
@@ -156,4 +156,5 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified Developed By Mubasher & Fellows.")
+
 
