@@ -12,7 +12,7 @@ st.markdown("""
     /* 1. TARGETING LEFT TOP CORNER ICON (Sidebar Toggle) */
     /* This forces the '>>' icon on the left to be Red */
     [data-testid="stSidebarCollapseButton"] svg {
-        fill: #FF0000 !important;
+        fill: #FFFFFF !important;
         width: 28px !important;
         height: 28px !important;
     }
@@ -23,7 +23,7 @@ st.markdown("""
         border-right: 1px solid #DEE2E6;
     }
     [data-testid="stSidebar"] * {
-        color: #000000 !important;
+        color: #FF0000 !important;
         font-weight: 700 !important;
     }
 
@@ -45,7 +45,7 @@ st.markdown("""
     }
     
     .intel-box {
-        background-color: #F8F9FA !important;
+        background-color: #F8F9FAF !important;
         border: 2px solid #000000;
         padding: 25px;
         border-radius: 12px;
@@ -156,3 +156,4 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Footer
 st.markdown("---")
 st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified Developed By Mubasher & Fellows.")
+
