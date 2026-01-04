@@ -6,12 +6,25 @@ import time
 import random
 
 # 1. Page Configuration
-st.set_page_config(page_title="FraudGuard AI | Global Security", layout="wide")
+st.set_page_config(page_title="FraudGuard AI | Enterprise", layout="wide")
 
-# 2. Universal UI Force (Controls Light/Dark Visibility)
+# 2. Exact Template CSS (Forceful UI)
 st.markdown("""
     <style>
-    /* Force Sidebar (Control Panel) to STAY in Light Theme */
+    /* Universal Text Force: Black for main, White for specific boxes */
+    html, body, [class*="css"] {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Background Image: High Clarity with Fixed Position */
+    .stApp {
+        background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), 
+                    url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    /* Force Sidebar (Control Panel) to Light Theme */
     [data-testid="stSidebar"] {
         background-color: #F8F9FA !important;
         border-right: 1px solid #DEE2E6;
@@ -21,7 +34,7 @@ st.markdown("""
         font-weight: 600 !important;
     }
     
-    /* TARGETED FIX: Sidebar Arrow Icon (>>) Red Color */
+    /* Sidebar Toggle Arrow (>>) Red Fix */
     [data-testid="stSidebarCollapseButton"] svg {
         fill: #FF0000 !important;
     }
@@ -29,24 +42,16 @@ st.markdown("""
         fill: #FF0000 !important;
     }
 
-    /* Background Image: Maximum Clarity */
-    .stApp {
-        background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), 
-                    url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
-        background-size: cover;
-        background-attachment: fixed;
-    }
-
-    /* Main Container: Absolute Solid White */
-    .solid-container {
+    /* Main Container: Solid White Box */
+    .main-container {
         background-color: #FFFFFF !important;
         padding: 40px;
         border-radius: 15px;
         border: 2px solid #000000;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
     
-    /* Intelligence Feed: Informative Box */
+    /* Security Intelligence Feed Box */
     .intel-box {
         background-color: #F1F3F5 !important;
         border: 2px solid #000000;
@@ -56,7 +61,7 @@ st.markdown("""
         color: #000000 !important;
     }
 
-    /* FIX: Button - White Background with Black Text */
+    /* Button Styling: White with Black Text */
     div.stButton > button {
         background-color: #FFFFFF !important;
         color: #000000 !important;
@@ -67,17 +72,16 @@ st.markdown("""
         font-size: 1.1rem !important;
     }
     div.stButton > button:hover {
-        background-color: #F1F3F5 !important;
-        border: 2px solid #000000 !important;
+        background-color: #E2E6EA !important;
     }
 
-    /* Force All Main Text to Solid Black */
-    h1, h2, h3, h4, p, span, label, div, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
+    /* Metric/KPI Visibility */
+    [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 700 !important;
     }
 
-    /* Report Card: Deep Black with Solid White Text */
+    /* Report Card: Solid Black with White Text */
     .report-card {
         background-color: #000000 !important;
         border-left: 12px solid #28a745;
@@ -87,6 +91,12 @@ st.markdown("""
     }
     .report-card * {
         color: #FFFFFF !important;
+    }
+
+    /* Global Header/Subheader Black Force */
+    h1, h2, h3, h4, p, span, label {
+        color: #000000 !important;
+        font-weight: 700 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -109,15 +119,15 @@ with st.sidebar:
     st.header("⚙️ Control Panel")
     st.write("Adjust transaction parameters for real-time risk assessment.")
     amount = st.number_input("Transaction Value (USD)", min_value=0.0, value=250.0)
-    v14 = st.slider("Coefficient V14 (Structural)", -20.0, 10.0, 0.0)
-    v17 = st.slider("Coefficient V17 (Behavioral)", -20.0, 10.0, 0.0)
+    v14 = st.slider("Coefficient V14 (Structural Risk)", -20.0, 10.0, 0.0)
+    v17 = st.slider("Coefficient V17 (Behavioral Risk)", -20.0, 10.0, 0.0)
     st.markdown("---")
-    st.caption("Compliance: ISO 27001 & PCI-DSS")
+    st.caption("Standard: PCI-DSS Compliant")
 
 # --- MAIN DASHBOARD AREA ---
-st.markdown('<div class="solid-container">', unsafe_allow_html=True)
+st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
-# SECURITY INTELLIGENCE FEED (Filled White Box)
+# SECURITY INTELLIGENCE FEED (Informative Box)
 st.markdown(f"""
 <div class="intel-box">
     <h4 style="margin-top:0;">🛡️ Security Intelligence Feed</h4>
@@ -130,13 +140,14 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
+
 col_main, col_kpi = st.columns([2, 1])
 
 with col_main:
     st.subheader("🔍 Transaction Security Analysis")
     
     if st.button("EXECUTE SECURITY SCAN"):
-        with st.spinner('Syncing with Global Security Database...'):
+        with st.spinner('Accessing Global Security Database...'):
             time.sleep(1.2)
             if model:
                 # Prepare Prediction
