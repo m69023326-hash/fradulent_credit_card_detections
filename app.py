@@ -156,5 +156,6 @@ with col_kpi:
     st.metric("Processing", f"{latency}ms", delta=f"{random.randint(-1, 1)}ms", delta_color="inverse")
 
 st.markdown('</div>', unsafe_allow_html=True)
-st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
+st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit Developed By Mubasher Arshad & Fellows")
+
 
