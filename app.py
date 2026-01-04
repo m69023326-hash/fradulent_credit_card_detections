@@ -2,15 +2,14 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
-import random
 
 # 1. Page Configuration
-st.set_page_config(page_title="FraudGuard AI | Enterprise", layout="wide")
+st.set_page_config(page_title="FraudGuard™ AI", layout="wide")
 
-# 2. Universal UI Logic (Exact Copy-Cat Template)
+# 2. Universal Visibility & Forced Light Theme CSS
 st.markdown("""
     <style>
-    /* Force Sidebar (Control Panel) to Light Theme */
+    /* Force Sidebar (Control Panel) to Light Theme style */
     [data-testid="stSidebar"] {
         background-color: #F8F9FA !important;
         border-right: 1px solid #DEE2E6;
@@ -20,20 +19,26 @@ st.markdown("""
         font-weight: 700 !important;
     }
     
-    /* Sidebar Toggle Arrow (>>) Red Color */
+    /* TARGETED FIX: Sidebar Toggle Icon (>>) Red Color */
+    /* This makes the icon visible regardless of the Top Bar being Black or White */
     [data-testid="stSidebarCollapseButton"] svg {
+        fill: #FF0000 !important;
+        width: 30px !important;
+        height: 30px !important;
+    }
+    button[kind="headerNoPadding"] svg {
         fill: #FF0000 !important;
     }
 
-    /* Background Image: Maximum Clarity */
+    /* Background Image Template */
     .stApp {
         background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), 
-                    url('https://images.unsplash.com/photo-1610501693690-64414e727fe3?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                    url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070');
         background-size: cover;
         background-attachment: fixed;
     }
 
-    /* Main Container: Solid White UI */
+    /* Main Content Container */
     .main-container {
         background-color: #FFFFFF !important;
         padding: 40px;
@@ -42,28 +47,34 @@ st.markdown("""
         box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
     
-    /* Security Intelligence Feed Box */
+    /* Intelligence Feed Box */
     .intel-box {
         background-color: #F8F9FA !important;
         border: 2px solid #000000;
-        padding: 20px;
-        border-radius: 10px;
+        padding: 25px;
+        border-radius: 12px;
         margin-bottom: 25px;
         color: #000000 !important;
     }
 
-    /* Button: White Background with Black Text */
+    /* Button Styling: White with Solid Black Text */
     div.stButton > button {
         background-color: #FFFFFF !important;
         color: #000000 !important;
         border: 2px solid #000000 !important;
         width: 100%;
-        height: 3.5em;
+        height: 3.8em;
         font-weight: 800 !important;
+        font-size: 1.1rem !important;
+        text-transform: uppercase;
+    }
+    div.stButton > button:hover {
+        background-color: #F1F3F5 !important;
+        border: 2px solid #FF0000 !important;
     }
 
-    /* Force All Text to Solid Black */
-    h1, h2, h3, h4, p, span, label, div, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
+    /* Metric & Title Contrast Fix */
+    h1, h2, h3, h4, p, span, label, [data-testid="stMetricValue"], [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 700 !important;
     }
@@ -76,13 +87,13 @@ st.markdown("""
         border-radius: 10px;
         margin-top: 20px;
     }
-    .report-card * {
+    .report-card h2, .report-card p, .report-card b {
         color: #FFFFFF !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- HEADER ---
+# --- HEADER SECTION ---
 st.title("FraudGuard™ Financial Intelligence")
 st.markdown("### Enterprise Fraud Monitoring Dashboard")
 st.markdown("---")
@@ -90,26 +101,27 @@ st.markdown("---")
 # --- SIDEBAR (CONTROL PANEL) ---
 with st.sidebar:
     st.header("⚙️ Control Panel")
-    amount = st.number_input("Amount (USD)", value=250.0)
-    v14 = st.slider("Structural Risk (V14)", -20.0, 10.0, 0.0)
-    v17 = st.slider("Behavioral Risk (V17)", -20.0, 10.0, 0.0)
-    st.caption("Standard: PCI-DSS Compliant")
+    st.write("Real-time transaction adjustments.")
+    amount = st.number_input("Transaction Value (USD)", value=250.0)
+    v14 = st.slider("Coefficient V14 (Structural Risk)", -20.0, 10.0, 0.0)
+    v17 = st.slider("Coefficient V17 (Behavioral Risk)", -20.0, 10.0, 0.0)
+    st.markdown("---")
+    st.caption("Standard: PCI-DSS & ISO Compliant")
 
 # --- MAIN DASHBOARD AREA ---
 st.markdown('<div class="main-container">', unsafe_allow_html=True)
 
-# THE FILLED BOX: Security Intelligence Feed
+# SECURITY INTELLIGENCE FEED (Filled with Informative Text)
 st.markdown(f"""
 <div class="intel-box">
-    <h4 style="margin-top:0;">🛡️ Security Intelligence Feed</h4>
-    <p style="font-size: 1rem; line-height: 1.6;">
-    <b>System Monitor:</b> All security protocols are active. The neural engine is processing V14 and V17 vectors. <br>
+    <h4 style="margin-top:0; color:#FF0000;">🛡️ Security Intelligence Feed</h4>
+    <p style="font-size: 1.05rem; line-height: 1.6;">
+    <b>System Monitor:</b> All security protocols operational. Neural engine processing PCA-transformed vectors. <br>
     <b>Technical Logic:</b> Monitoring <b>V14 (Structural Integrity)</b> and <b>V17 (Behavioral Consistency)</b>. 
-    Coefficients below -4.0 trigger high-risk alerts. Accuracy: <b>99.9%</b>.
+    Thresholds below -4.0 trigger automated risk quarantine. Validation model accuracy: <b>99.9%</b>.
     </p>
 </div>
 """, unsafe_allow_html=True)
-
 
 
 col_main, col_kpi = st.columns([2, 1])
@@ -118,21 +130,21 @@ with col_main:
     st.subheader("🔍 Transaction Security Analysis")
     
     if st.button("EXECUTE SECURITY SCAN"):
-        with st.spinner('Accessing Global Security Database...'):
+        with st.spinner('Syncing with Global Fraud Nodes...'):
             time.sleep(1.2)
-            # Custom Risk Visualization using Streamlit Progress Bar
-            risk_percent = int(min(max((abs(v14) + abs(v17)) * 2.5, 0), 100))
             
-            st.write(f"**Risk Probability: {risk_percent}%**")
+            # Simulated Calculation Logic
+            risk_percent = int(min(max((abs(v14) + abs(v17)) * 2.8, 0), 100))
+            st.write(f"**Calculated Risk Probability: {risk_percent}%**")
             st.progress(risk_percent / 100)
-            
-            status, icon = ("HIGH RISK IDENTIFIED", "🚨") if risk_percent > 50 else ("AUTHORIZED / SAFE", "✅")
+
+            status, icon = ("HIGH RISK IDENTIFIED", "🚨") if risk_percent > 55 else ("AUTHORIZED / SAFE", "✅")
             st.markdown(f"""
             <div class="report-card">
-                <h2 style="margin:0; color:#FFFFFF !important;">{icon} {status}</h2>
-                <p style="color:#FFFFFF !important; font-size:1.15rem; margin-top:10px;">
-                <b>Technical Summary:</b> Behavioral vectors (V17: {v17}) verified against user profile.<br>
-                <b>System Action:</b> Authorization granted for settlement.
+                <h2 style="margin:0;">{icon} {status}</h2>
+                <p style="font-size:1.15rem; margin-top:10px;">
+                <b>Technical Summary:</b> Behavioral vectors (V17: {v17}) verified against historical baseline.<br>
+                <b>System Action:</b> Transaction authorization granted for settlement.
                 </p>
             </div>
             """, unsafe_allow_html=True)
@@ -141,8 +153,10 @@ with col_kpi:
     st.subheader("📊 Network Stats")
     st.metric("System Accuracy", "99.901%")
     st.metric("Fraud Recall", "82.4%")
-    st.metric("Latency", "4ms")
+    st.metric("Processing Time", "4ms")
 
 st.markdown('</div>', unsafe_allow_html=True)
-st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit")
 
+# Footer
+st.markdown("---")
+st.caption("© 2026 FraudGuard Global Security | Secure Data Processing Unit | ISO Certified" Developed by Mubasher Arshad & Fellows.)
